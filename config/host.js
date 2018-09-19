@@ -1,7 +1,7 @@
 const Options = require('./options');
 const Host = {
 	DOMAIN: "jhwly.gcp.mongodb.net",
-	PORT: process.env.PORT || 27017,
+	PORT: 27017,
 	SHARDS: 3
 };
 const toMember = (shardPrefix, shardIndex) => `${shardPrefix}${shardIndex}-${Host.DOMAIN}:${Host.PORT}`;
