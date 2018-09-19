@@ -1,7 +1,7 @@
 const Authentication = {
-	USER: "plantIdentificationClient",
-	PASS: "K0G2nEsrL9Nyf3RX",
-	DATABASE: "plants"
+	USER: process.env.USER,
+	PASS: process.env.PASS,
+	DATABASE: process.env.DATABASE
 };
 Object.freeze(Authentication);
 module.exports = Authentication;
