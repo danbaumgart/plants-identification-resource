@@ -1,28 +1,28 @@
+const Status = require("../constants/status");
 const Models = require("../models");
-const toStartsWithPattern = stringValue => new RegExp(`^${stringValue}`, 'i');
+const Pattern = require("../utils/pattern");
 exports.getFamilies = (req, res) => {
-	const {name, genera} = req.query || {};
 	const query = {};
-	if(name) query._id = toStartsWithPattern(name);
-	if(genera) query.genera = toStartsWithPattern(genera);
+	if(req.query.name) query.name = Pattern.beginsWithIgnoreCase(req.query.name);
+	if(req.query.genera) query.genera = Pattern.beginsWithIgnoreCase(req.query.genera);
 	Models.Families.find(query, (err, families) => {
-		if(err) res.send(err);
-		res.json(families.map(family => ({
-			name: family._id,
-			genera: query.genera ? family.genera.filter(genus => query.genera.test(genus)) : family.genera
+		if(err) res.status(Status.INTERNAL_SERVER_ERROR).json(err);
+		res.status(Status.OK).json(families.map(family => ({
+			name: family.name,
+			genera: query.genera ? family.genera.filter(genera => query.genera.test(genera)) : family.genera
 		})));
 	})
 };
 exports.getFamily = (req, res) => {
-	const {id} = req.params || {};
-	if(!id) res.send(new Error("Family is required"));
-	const query = {_id: id};
-	if(req.query.genera) query.genera = toStartsWithPattern(req.query.genera);
+	const {id: name} = req.params || {};
+	if(!name) res.send(new Error("Family name required"));
+	const query = {name};
+	if(req.query.genera) query.genera = Pattern.beginsWithIgnoreCase(req.query.genera);
 	Models.Families.findOne(query, (err, family) => {
 		if(err) res.send(err);
-		res.json({
-			name: family._id,
-			genera: query.genera ? family.genera.filter(genus => query.genera.test(genus)) : family.genera
+		res.status(Status.OK).json({
+			name: family.name,
+			genera: query.genera ? family.genera.filter(genera => query.genera.test(genera)) : family.genera
 		});
 	})
 };

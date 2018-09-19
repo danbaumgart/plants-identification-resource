@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
-const db = require('./db');
+const mongooseDb = require('./db');
+const bodyParser = require('body-parser');
+const routes = require('./controllers/routes');
 
-const Controllers = require('./controllers/routes');
-app.use('/api', Controllers);
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use('/api', routes);
 
 module.exports = app;

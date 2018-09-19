@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const {createModel, upload} = require('../db');
 const Schemas = require("./schema");
-exports.Families = mongoose.model('families', Schemas.Families);
-exports.Species = mongoose.model('species', Schemas.Species);
+const Files = require('./files');
+exports.Families = createModel('families', Schemas.Family);
+exports.Species = createModel('species', Schemas.Specimen);
+exports.Uploads = Files.Uploads;

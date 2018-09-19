@@ -1,26 +1,31 @@
-
-
-const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const {Schema} = require('../db');
 const {String, ObjectId} = Schema.Types;
 const Attribute = {
 	name: String,
 	description: [String]
 };
-exports.User = new Schema({
+const Family = new Schema({
 	name: String,
-	email: String,
-	password: String
-});
-exports.Species = new Schema({
-	_id: ObjectId,
-	family: String,
-	genus: String,
-	specificEpithet: String,
-	commonNames: [String],
-	attributes: [Attribute]
-});
-exports.Families = new Schema({
-	_id: String,
 	genera: [String],
 });
+const Specimen = new Schema({
+	_id: ObjectId,
+	family: {
+		type: String,
+		required: true
+	},
+	genus: {
+		type: String,
+		required: true
+	},
+	specificEpithet: {
+		type: String,
+		required: true
+	},
+	commonNames: [String],
+	attributes: [Attribute]
+}, {
+	versionKey: false
+});
+exports.Specimen = Specimen;
+exports.Family = Family;
