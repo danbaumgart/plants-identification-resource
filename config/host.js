@@ -1,6 +1,6 @@
 const Options = require('./options');
 const Host = {
-	DOMAIN: "jhwly.gcp.mongodb.net",
+	DOMAIN: process.env.DOMAIN,
 	PORT: 27017,
 	SHARDS: 3
 };
