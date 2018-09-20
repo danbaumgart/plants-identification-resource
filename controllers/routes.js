@@ -1,9 +1,8 @@
 const {uploadSingle} = require('../db');
+const MimeTypes = require('../constants/mime/types');
 
 const express = require('express');
 const router = express.Router();
-//const multipart = require('connect-multiparty');
-//const multipartMiddleware = multipart();
 
 const FamiliesController = require("./families");
 const SpeciesController = require("./species");
@@ -18,13 +17,13 @@ router.post('/species', SpeciesController.createSpecimen);
 router.put('/species/:id', SpeciesController.updateSpecimen);
 router.delete('/species/:id', SpeciesController.removeSpecimen);
 
+
 router.get('/uploads', UploadsController.getFiles);
 router.get('/uploads/:id', UploadsController.getFile);
-//router.put('/uploads/:id', UploadsController.updateFile);
+router.get('/uploads/:id/image', UploadsController.renderFile(MimeTypes.IMAGE));
+router.get('/uploads/:id/audio', UploadsController.renderFile(MimeTypes.AUDIO));
+router.put('/uploads/:id', UploadsController.updateMetadata);
 router.post('/uploads', uploadSingle('file'), UploadsController.uploadFile);
 router.delete('/uploads/:id', UploadsController.removeFile);
-
-router.get('/photos/:id', UploadsController.renderFile('image'));
-router.get('/audio/:id', UploadsController.renderFile('audio'));
 
 module.exports = router;
