@@ -1,11 +1,13 @@
-const Status = {
+const HttpStatus = {
 	OK: 200,
 	BAD_REQUEST: 400,
+	UNAUTHORIZED: 401,
 	NOT_FOUND: 404,
+	CONFLICT: 409,
 	INTERNAL_SERVER_ERROR: 500
 };
-Object.defineProperties(Status, {
-	values: {get: () => Object.values(Status)}
+Object.defineProperties(HttpStatus, {
+	errors: {get: () => Object.entries(HttpStatus).filter(([key, value]) => value >= 400)},
 });
-Object.freeze(Status);
-module.exports = Status;
+Object.freeze(HttpStatus);
+module.exports = HttpStatus;

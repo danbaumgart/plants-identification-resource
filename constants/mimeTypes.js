@@ -1,4 +1,3 @@
-const MimeSubTypes = require('./subTypes');
 const MimeTypes = {
 	AUDIO: "audio",
 	VIDEO: "video",
@@ -7,8 +6,8 @@ const MimeTypes = {
 	TEXT: "text",
 	isType(mimeType, file) {
 		const {contentType} = file || {};
-		const [type, subType] = contentType.split('/');
-		return type === mimeType && MimeSubTypes[type].values.includes(subType);
+		const type = contentType && contentType.slice(0, contentType.indexOf('/'));
+		return type === mimeType;
 	}
 };
 Object.defineProperties(MimeTypes, {values: {get: () => Object.keys(MimeTypes)}});

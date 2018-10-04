@@ -1,5 +1,5 @@
 const {uploadSingle} = require('../db');
-const MimeTypes = require('../constants/mime/types');
+const MimeTypes = require('../constants/mimeTypes');
 
 const express = require('express');
 const router = express.Router();

@@ -1,5 +1,5 @@
 const {mongo, connection} = require('../db');
-const MimeTypes = require('../constants/mime/types');
+const MimeTypes = require('../constants/mimeTypes');
 const Grid = require('gridfs-stream');
 const Status = require('../constants/status');
 const UPLOADS = "uploads";
